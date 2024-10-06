@@ -189,14 +189,14 @@ export default class World1 {
         this.singPieps.scaleY = 0.25
         this.singPieps.depth = 10
 
-        this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { loop: true });
+        this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { volume: -0.5 });
 
         this.analyser = this.scene.sound.context.createAnalyser();
         this.analyser.fftSize = 256;
         //this.analyser.smoothingTimeConstant = 0.8; //If Smoothing is needet
         this.frequencyDataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
-        this.pumpkinSound.on('play', this.connectAnalyserNode, this);
+        this.pumpkinSound.on('play', this.handlePumpkinSoundPlay, this);
 
         this.scene.input.on('pointerdown', () => {
             if (this.scene.sound.context.state === 'suspended') {
@@ -215,12 +215,14 @@ export default class World1 {
         });
     };
 
+    handlePumpkinSoundPlay() {
+        this.connectAnalyserNode();
+    }
+
     connectAnalyserNode() {
         if (this.pumpkinSound && this.pumpkinSound.source) {
             this.pumpkinSound.source.connect(this.analyser);
             this.analyser.connect(this.scene.sound.context.destination);
-
-            this.pumpkinSound.off('play', this.connectAnalyserNode, this);
         } else {
             console.warn('Sound source is not available.');
         }
@@ -234,7 +236,7 @@ export default class World1 {
     
             this.bassVolume = bassFrequencies.reduce((a, b) => a + b, 1) / bassFrequencies.length;
     
-            console.log('Bass Volume:', this.bassVolume);
+            //console.log('Bass Volume:', this.bassVolume);
     
             let threshold = 210;
             let adjustedBassVolume = this.bassVolume - threshold;
@@ -244,15 +246,15 @@ export default class World1 {
             let maxPossibleVolume = 255 - threshold;
             let normalizedBass = adjustedBassVolume / maxPossibleVolume;
     
-            console.log('Adjusted Bass Volume:', adjustedBassVolume);
-            console.log('Normalized Bass:', normalizedBass);
+            //console.log('Adjusted Bass Volume:', adjustedBassVolume);
+            //console.log('Normalized Bass:', normalizedBass);
     
             let scalingFactor = 2;
             let alphaValue = normalizedBass * scalingFactor;
     
             alphaValue = Phaser.Math.Clamp(alphaValue, 0, 1);
     
-            console.log('Alpha Value:', alphaValue);
+            //console.log('Alpha Value:', alphaValue);
     
             this.houseWindow.alpha = alphaValue;
         } else {
@@ -283,6 +285,10 @@ export default class World1 {
     
 
     update(time, delta) {
+        if (!this.pumpkinSound.isPlaying) {
+            this.pumpkinSound.play()
+
+        }
         this.guitarHandler();
         this.singPiepsHandler();
         this.flickerTimer += delta;

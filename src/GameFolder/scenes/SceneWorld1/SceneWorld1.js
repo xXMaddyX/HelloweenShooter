@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import World1 from "../../worlds/world1/World1";
 import Pieps from "../../monsters/pieps/pieps";
+import Player from "../../player/player";
 import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 
 export default class SceneLvL1 extends Phaser.Scene {
@@ -11,7 +12,7 @@ export default class SceneLvL1 extends Phaser.Scene {
     };
 
     initScene() {
-
+        
     };
 
     resetScene() {
@@ -19,6 +20,7 @@ export default class SceneLvL1 extends Phaser.Scene {
     };
     
     preload() {
+        Player.loadSprites(this);
         World1.loadSprites(this);
         Pieps.loadSprites(this);
         FlyingPumpkin.loadSprites(this);
@@ -37,10 +39,14 @@ export default class SceneLvL1 extends Phaser.Scene {
         FlyingPumpkin.initAnimations(this)
         this.pumpkins = new FlyingPumpkin(this);
         this.pumpkins.create()
+        
+        this.playerCross = new Player(this)
+        this.playerCross.create()
     };
 
     update(time, delta) {
         this.world.update(time, delta);
-        this.pieps.update(time, delta)
+        this.pieps.update(time, delta);
+        this.playerCross.update(time, delta)
     };
 };

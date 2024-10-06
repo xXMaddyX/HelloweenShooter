@@ -58,6 +58,9 @@ import SingPieps1 from "../assets/SingPieps/SingPieps_0001.png"
 import SingPieps2 from "../assets/SingPieps/SingPieps_0002.png"
 import SingPieps3 from "../assets/SingPieps/SingPieps_0003.png"
 
+//CROSS_HAIR
+import CrossHair from '../assets/CrossHair/ZielKreuz.png'
+
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
 
@@ -99,4 +102,7 @@ export {
     SingPieps1,
     SingPieps2,
     SingPieps3,
+
+    //CROSS_HAIR
+    CrossHair,
 };

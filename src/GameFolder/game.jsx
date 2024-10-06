@@ -18,7 +18,8 @@ function Game() {
                 physics: {
                     default: "arcade",
                     arcade: {
-                        gravity: -200,
+                        gravity: 0,
+                        //debug: true
                     }
                 },
                 scene: [
