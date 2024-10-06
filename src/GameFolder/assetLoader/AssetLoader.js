@@ -43,6 +43,21 @@ import Moon from '../assets/Env/Mond.png';
 //MAD_PIEPS
 import MadPieps from '../assets/Env/Pieps.png';
 
+//GuitarPieps
+import GuitarPieps0 from "../assets/GuitarPieps/GuitarePieps_0000.png"
+import GuitarPieps1 from "../assets/GuitarPieps/GuitarePieps_0001.png"
+import GuitarPieps2 from "../assets/GuitarPieps/GuitarePieps_0002.png"
+import GuitarPieps3 from "../assets/GuitarPieps/GuitarePieps_0003.png"
+import GuitarPieps4 from "../assets/GuitarPieps/GuitarePieps_0004.png"
+import GuitarPieps5 from "../assets/GuitarPieps/GuitarePieps_0005.png"
+import GuitarPieps6 from "../assets/GuitarPieps/GuitarePieps_0006.png"
+
+//SING_PIEPS
+import SingPieps0 from "../assets/SingPieps/SingPieps_0000.png"
+import SingPieps1 from "../assets/SingPieps/SingPieps_0001.png"
+import SingPieps2 from "../assets/SingPieps/SingPieps_0002.png"
+import SingPieps3 from "../assets/SingPieps/SingPieps_0003.png"
+
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
 
@@ -69,4 +84,19 @@ export {
     Moon,
     MadPieps,
     PumpkinSong,
+
+    //GuitarPieps Export
+    GuitarPieps0,
+    GuitarPieps1,
+    GuitarPieps2,
+    GuitarPieps3,
+    GuitarPieps4,
+    GuitarPieps5,
+    GuitarPieps6,
+
+    //SING_PIEPS
+    SingPieps0,
+    SingPieps1,
+    SingPieps2,
+    SingPieps3,
 };

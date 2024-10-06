@@ -20,6 +20,17 @@ import {
     Moon,
     SpiderWeb,
     PumpkinSong,
+    GuitarPieps0,
+    GuitarPieps1,
+    GuitarPieps2,
+    GuitarPieps3,
+    GuitarPieps4,
+    GuitarPieps5,
+    GuitarPieps6,
+    SingPieps0,
+    SingPieps1,
+    SingPieps2,
+    SingPieps3,
 } from '../../assetLoader/AssetLoader.js';
 
 export default class World1 {
@@ -53,11 +64,52 @@ export default class World1 {
         if (!scene.textures.exists(KEYS.KEY_SPIDERWEB)) scene.load.image(KEYS.KEY_SPIDERWEB, SpiderWeb);
         if (!scene.textures.exists(KEYS.KEY_PUMPKINBIG)) scene.load.image(KEYS.KEY_PUMPKINBIG, PumpkinBig);
 
+        //Import Guitar Pieps
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps0)) scene.load.image(KEYS.KEY_GuitarPieps0, GuitarPieps0);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps1)) scene.load.image(KEYS.KEY_GuitarPieps1, GuitarPieps1);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps2)) scene.load.image(KEYS.KEY_GuitarPieps2, GuitarPieps2);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps3)) scene.load.image(KEYS.KEY_GuitarPieps3, GuitarPieps3);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps4)) scene.load.image(KEYS.KEY_GuitarPieps4, GuitarPieps4);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps5)) scene.load.image(KEYS.KEY_GuitarPieps5, GuitarPieps5);
+        if (!scene.textures.exists(KEYS.KEY_GuitarPieps6)) scene.load.image(KEYS.KEY_GuitarPieps6, GuitarPieps6);
+
+        //Import Sing Pieps
+        if (!scene.textures.exists(KEYS.KEY_SING_PIEPS0)) scene.load.image(KEYS.KEY_SING_PIEPS0, SingPieps0);
+        if (!scene.textures.exists(KEYS.KEY_SING_PIEPS1)) scene.load.image(KEYS.KEY_SING_PIEPS1, SingPieps1);
+        if (!scene.textures.exists(KEYS.KEY_SING_PIEPS2)) scene.load.image(KEYS.KEY_SING_PIEPS2, SingPieps2);
+        if (!scene.textures.exists(KEYS.KEY_SING_PIEPS3)) scene.load.image(KEYS.KEY_SING_PIEPS3, SingPieps3);
+
+
         scene.load.audio(KEYS.KEY_PUMPKIN_SONG, PumpkinSong);
     };
 
-    initAnimations() {
-        
+    static initAnimations(scene) {
+        scene.anims.create({
+            key: "guitarAnim",
+            frames: [
+                { key: KEYS.KEY_GuitarPieps0 },
+                { key: KEYS.KEY_GuitarPieps1 },
+                { key: KEYS.KEY_GuitarPieps2 },
+                { key: KEYS.KEY_GuitarPieps3 },
+                { key: KEYS.KEY_GuitarPieps4 },
+                { key: KEYS.KEY_GuitarPieps5 },
+                { key: KEYS.KEY_GuitarPieps6 },
+            ],
+            frameRate: 20,
+            repeat: -1
+        })
+
+        scene.anims.create({
+            key: "singAnim",
+            frames: [
+                { key: KEYS.KEY_SING_PIEPS0 },
+                { key: KEYS.KEY_SING_PIEPS1 },
+                { key: KEYS.KEY_SING_PIEPS2 },
+                { key: KEYS.KEY_SING_PIEPS3 },
+            ],
+            frameRate: 10,
+            repeat: -1
+        })
     };
 
     create() {
@@ -128,11 +180,20 @@ export default class World1 {
         this.pumpkinBig.scale = 1;
         this.pumpkinBig.depth = 10;
 
+        this.guitarPieps = this.scene.add.sprite(calcBackPositionX(0) - 100, calcBackPositionY(0) + 400, KEYS.KEY_GuitarPieps0)
+        this.guitarPieps.scale = 0.25
+        this.guitarPieps.depth = 11
+
+        this.singPieps = this.scene.add.sprite(calcBackPositionX(0), calcBackPositionY(0) + 320, KEYS.KEY_SING_PIEPS0)
+        this.singPieps.scaleX = -0.25
+        this.singPieps.scaleY = 0.25
+        this.singPieps.depth = 10
+
         this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { loop: true });
 
         this.analyser = this.scene.sound.context.createAnalyser();
         this.analyser.fftSize = 256;
-        //this.analyser.smoothingTimeConstant = 0.8;
+        //this.analyser.smoothingTimeConstant = 0.8; //If Smoothing is needet
         this.frequencyDataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
         this.pumpkinSound.on('play', this.connectAnalyserNode, this);
@@ -142,6 +203,7 @@ export default class World1 {
                 this.scene.sound.context.resume().then(() => {
                     console.log('AudioContext erfolgreich entsperrt.');
                     if (!this.pumpkinSound.isPlaying) {
+                        this.guitarPieps.anims.play("guitarAnim")
                         this.pumpkinSound.play();
                     }
                 });
@@ -170,12 +232,12 @@ export default class World1 {
     
             let bassFrequencies = this.frequencyDataArray.slice(2, 3);
     
-            let bassVolume = bassFrequencies.reduce((a, b) => a + b, 1) / bassFrequencies.length;
+            this.bassVolume = bassFrequencies.reduce((a, b) => a + b, 1) / bassFrequencies.length;
     
-            console.log('Bass Volume:', bassVolume);
+            console.log('Bass Volume:', this.bassVolume);
     
             let threshold = 210;
-            let adjustedBassVolume = bassVolume - threshold;
+            let adjustedBassVolume = this.bassVolume - threshold;
     
             adjustedBassVolume = Math.max(0, adjustedBassVolume);
     
@@ -199,9 +261,30 @@ export default class World1 {
         }
     }
     
+    guitarHandler() {
+        if (this.bassVolume <= 200) {
+            this.guitarPieps.anims.stop()
+        } else {
+            if (!this.guitarPieps.anims.isPlaying) {
+                this.guitarPieps.anims.play("guitarAnim")
+            }
+        }
+    }
+
+    singPiepsHandler() {
+        if (this.bassVolume <= 220) {
+            this.singPieps.anims.stop()
+        } else {
+            if (!this.singPieps.anims.isPlaying) {
+                this.singPieps.anims.play("singAnim")
+            }
+        }
+    }
     
 
     update(time, delta) {
+        this.guitarHandler();
+        this.singPiepsHandler();
         this.flickerTimer += delta;
 
         if (this.flickerTimer >= this.flickerDelay) {

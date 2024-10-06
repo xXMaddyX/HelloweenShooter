@@ -24,7 +24,20 @@ const KEYS = {
     KEY_BAUM: "Baum",
     KEY_PUMPKINBIG: "PumpKinBig",
     KEY_PUMPKINSMAL: "PumpkinSmal",
-    KEY_PUMPKIN_SONG: "PumpkinSong"
+    KEY_PUMPKIN_SONG: "PumpkinSong",
+
+    KEY_GuitarPieps0: "GuitarPieps0",
+    KEY_GuitarPieps1: "GuitarPieps1",
+    KEY_GuitarPieps2: "GuitarPieps2",
+    KEY_GuitarPieps3: "GuitarPieps3",
+    KEY_GuitarPieps4: "GuitarPieps4",
+    KEY_GuitarPieps5: "GuitarPieps5",
+    KEY_GuitarPieps6: "GuitarPieps6",
+
+    KEY_SING_PIEPS0: "SingPieps0",
+    KEY_SING_PIEPS1: "SingPieps1",
+    KEY_SING_PIEPS2: "SingPieps2",
+    KEY_SING_PIEPS3: "SingPieps3",
 };
 
 const World1Config = {

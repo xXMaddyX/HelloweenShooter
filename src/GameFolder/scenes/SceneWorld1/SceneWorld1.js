@@ -27,6 +27,7 @@ export default class SceneLvL1 extends Phaser.Scene {
     create() {
         this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
         
+        World1.initAnimations(this)
         this.world = new World1(this)
         this.world.create()
         
