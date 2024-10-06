@@ -189,7 +189,7 @@ export default class World1 {
         this.singPieps.scaleY = 0.25
         this.singPieps.depth = 10
 
-        this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { volume: -0.5 });
+        this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { volume: -0.9 });
 
         this.analyser = this.scene.sound.context.createAnalyser();
         this.analyser.fftSize = 256;

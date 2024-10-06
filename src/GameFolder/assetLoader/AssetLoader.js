@@ -61,6 +61,11 @@ import SingPieps3 from "../assets/SingPieps/SingPieps_0003.png"
 //CROSS_HAIR
 import CrossHair from '../assets/CrossHair/ZielKreuz.png'
 
+//SMAL_ENEMY_PUMPKIN
+import EnemySmalPumpkin0 from '../assets/KoerbisKlein/KrbsKlein_0000.png'
+import EnemySmalPumpkin1 from '../assets/KoerbisKlein/KrbsKlein_0001.png'
+import EnemySmalPumpkin2 from '../assets/KoerbisKlein/KrbsKlein_0002.png'
+
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
 
@@ -105,4 +110,9 @@ export {
 
     //CROSS_HAIR
     CrossHair,
+
+    //SMAL_ENEMY_PUMPKIN
+    EnemySmalPumpkin0,
+    EnemySmalPumpkin1,
+    EnemySmalPumpkin2
 };
