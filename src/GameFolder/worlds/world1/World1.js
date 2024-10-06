@@ -131,8 +131,8 @@ export default class World1 {
         this.pumpkinSound = this.scene.sound.add(KEYS.KEY_PUMPKIN_SONG, { loop: true });
 
         this.analyser = this.scene.sound.context.createAnalyser();
-        this.analyser.fftSize = 512;
-        this.analyser.smoothingTimeConstant = 0.8;
+        this.analyser.fftSize = 256;
+        //this.analyser.smoothingTimeConstant = 0.8;
         this.frequencyDataArray = new Uint8Array(this.analyser.frequencyBinCount);
 
         this.pumpkinSound.on('play', this.connectAnalyserNode, this);
@@ -185,7 +185,7 @@ export default class World1 {
             console.log('Adjusted Bass Volume:', adjustedBassVolume);
             console.log('Normalized Bass:', normalizedBass);
     
-            let scalingFactor = 1.5;
+            let scalingFactor = 2;
             let alphaValue = normalizedBass * scalingFactor;
     
             alphaValue = Phaser.Math.Clamp(alphaValue, 0, 1);
