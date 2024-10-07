@@ -68,6 +68,7 @@ import EnemySmalPumpkin2 from '../assets/KoerbisKlein/KrbsKlein_0002.png'
 
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
+import PlayerShot from '../assets/sounds/playershot.wav'
 
 export {
     Background,
@@ -91,7 +92,10 @@ export {
     SpiderWeb,
     Moon,
     MadPieps,
+
+    //SOUNDS
     PumpkinSong,
+    PlayerShot,
 
     //GuitarPieps Export
     GuitarPieps0,
