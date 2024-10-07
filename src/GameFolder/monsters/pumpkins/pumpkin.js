@@ -1,4 +1,4 @@
-import Phaser, { Scale } from "phaser";
+import Phaser from "phaser";
 import { EnemySmalPumpkin0, EnemySmalPumpkin1, EnemySmalPumpkin2 } from "../../assetLoader/AssetLoader";
 
 const KEYS = {

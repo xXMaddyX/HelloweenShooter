@@ -1,0 +1,11 @@
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100px;
+}
+
+.loader {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
