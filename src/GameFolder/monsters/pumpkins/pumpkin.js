@@ -79,11 +79,15 @@ export default class SmalEnemyPumpkin {
         let frame = this.Pumpkin.anims.currentFrame.index
         if (frame === 3 && !this.inReset) {
             this.inReset = true
-            /*this.actualPositionIndex++
-            if (this.actualPositionIndex >= this.PumpkinPositions.length) {
-                this.actualPositionIndex = 0
-            }*/
             let randoomNum = Math.floor(Math.random() * this.PumpkinPositions.length);
+            if (this.actualPositionIndex === randoomNum) {
+                if (randoomNum + 1 >= this.PumpkinPositions.length) {
+                    randoomNum = 0
+                } else {
+                    randoomNum += 1
+                }
+            }
+            this.actualPositionIndex = randoomNum
             let {x, y, depth, scale, body, offset} = this.PumpkinPositions[randoomNum]
             this.Pumpkin.anims.stop()
             this.scene.time.delayedCall(3000, () => {
