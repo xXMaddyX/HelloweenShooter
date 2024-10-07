@@ -12,6 +12,9 @@ export default class SmalEnemyPumpkin {
         /**@type {Phaser.Scene} */
         this.scene = scene
         this.PumpkinPositions = [
+            {x: 630, y: 240, depth: 8, scale: 0.25},
+            {x: 1480, y: 800, depth: 5, scale: 0.25},
+            {x: 100, y: 750, depth: 5, scale: 0.25},
             {x: 280, y:180, depth: 5, scale: 0.25},
             {x: 600, y: 480, depth: 8, scale: 0.25},
             {x: 1300, y: 470, depth: 8, scale: 0.25},
@@ -66,11 +69,12 @@ export default class SmalEnemyPumpkin {
         let frame = this.Pumpkin.anims.currentFrame.index
         if (frame === 3 && !this.inReset) {
             this.inReset = true
-            this.actualPositionIndex++
+            /*this.actualPositionIndex++
             if (this.actualPositionIndex >= this.PumpkinPositions.length) {
                 this.actualPositionIndex = 0
-            }
-            let {x, y, depth, scale} = this.PumpkinPositions[this.actualPositionIndex]
+            }*/
+            let randoomNum = Math.floor(Math.random() * this.PumpkinPositions.length);
+            let {x, y, depth, scale} = this.PumpkinPositions[randoomNum]
             this.Pumpkin.anims.stop()
             this.scene.time.delayedCall(3000, () => {
                 this.Pumpkin.visible = false
