@@ -12,12 +12,12 @@ export default class SmalEnemyPumpkin {
         /**@type {Phaser.Scene} */
         this.scene = scene
         this.PumpkinPositions = [
-            {x: 630, y: 240, depth: 8, scale: 0.25},
-            {x: 1480, y: 800, depth: 5, scale: 0.25},
-            {x: 100, y: 750, depth: 5, scale: 0.25},
-            {x: 280, y:180, depth: 5, scale: 0.25},
-            {x: 600, y: 480, depth: 8, scale: 0.25},
-            {x: 1300, y: 470, depth: 8, scale: 0.25},
+            {x: 280, y:180, depth: 5, scale: 0.25, body: {width: 240, height: 200, center: true}, offset: {x: 240, y: 200}},
+            {x: 1300, y: 470, depth: 8, scale: 0.25, body: {width: 200, height: 130, center: true}, offset: null},
+            {x: 600, y: 480, depth: 8, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
+            {x: 100, y: 750, depth: 5, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
+            {x: 1480, y: 800, depth: 5, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: {x: 300, y: 200}},
+            {x: 630, y: 240, depth: 8, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
         ]
         this.actualPositionIndex = 0
         this.inReset = false
@@ -45,9 +45,15 @@ export default class SmalEnemyPumpkin {
 
     create() {
         this.initAnimations()
-        this.Pumpkin = this.scene.physics.add.sprite(this.PumpkinPositions[0].x, this.PumpkinPositions[0].y, KEYS.KEY_PUMPKIN0);
-        this.Pumpkin.depth = this.PumpkinPositions[0].depth
-        this.Pumpkin.scale = this.PumpkinPositions[0].scale
+        let { x, y, depth, scale, body, offset } = this.PumpkinPositions[0]
+        this.Pumpkin = this.scene.physics.add.sprite(x, y, KEYS.KEY_PUMPKIN0);
+        this.Pumpkin.depth = depth;
+        this.Pumpkin.scale = scale;
+        this.Pumpkin.setBodySize(body.width, body.height, body.center)
+        if (offset != null) {
+            this.Pumpkin.setOffset(offset.x, offset.y)
+        }
+        
     }
 
     pumpkinDead() {
@@ -55,12 +61,16 @@ export default class SmalEnemyPumpkin {
         this.isDestroyed = true
     }
 
-    resetPumkin(x, y, depth, scale) {
+    resetPumkin(x, y, depth, scale, body, offset) {
         this.Pumpkin.x = x;
         this.Pumpkin.y = y;
         this.Pumpkin.depth = depth;
         this.Pumpkin.scale = scale;
         this.Pumpkin.visible = true
+        this.Pumpkin.setBodySize(body.width, body.height, body.center)
+        if (offset != null) {
+            this.Pumpkin.setOffset(offset.x, offset.y)
+        }
         this.Pumpkin.anims.setCurrentFrame(this.Pumpkin.anims.currentAnim.frames[0])
         this.isDestroyed = false
     }
@@ -74,11 +84,11 @@ export default class SmalEnemyPumpkin {
                 this.actualPositionIndex = 0
             }*/
             let randoomNum = Math.floor(Math.random() * this.PumpkinPositions.length);
-            let {x, y, depth, scale} = this.PumpkinPositions[randoomNum]
+            let {x, y, depth, scale, body, offset} = this.PumpkinPositions[randoomNum]
             this.Pumpkin.anims.stop()
             this.scene.time.delayedCall(3000, () => {
                 this.Pumpkin.visible = false
-                this.resetPumkin(x, y, depth, scale)
+                this.resetPumkin(x, y, depth, scale, body, offset)
                 this.inReset = false
             })
         }
