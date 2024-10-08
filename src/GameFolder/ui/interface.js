@@ -38,7 +38,6 @@ export default class UiInterface {
         this.startBtn.on("pointerdown", () => {
             this.setOnDisableStartScreen();
             this.startGame();
-            console.log("is Triggert")
         });
 
         this.highScore = this.scene.add.sprite(900, 450, KEYS.KEY_HIGH_SCORE);
@@ -60,7 +59,6 @@ export default class UiInterface {
         this.score1.scale = 2
 
         this.setOnStartScreen();
-        //this.setOnDisableStartScreen();
     };
 
     setOnStartScreen() {
@@ -77,6 +75,7 @@ export default class UiInterface {
         this.restart.visible = false
         this.highScore.visible = false
         this.score1.visible = false
+        this.scene.resetScore();
     }
 
     setShowHighScore() {
