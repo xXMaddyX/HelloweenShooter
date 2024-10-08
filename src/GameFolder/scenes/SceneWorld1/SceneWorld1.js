@@ -7,6 +7,7 @@ import SmalerEnemyPumpkin from "../../monsters/pumpkins/smalerPumpkin";
 import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
+import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
 
 export default class SceneLvL1 extends Phaser.Scene {
     constructor() {
@@ -33,6 +34,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         SmalerEnemyPumpkin.loadSprites(this);
         PlusFiftyPointsClass.loadSprites(this);
         Plus100PointsClass.loadSprites(this);
+        FunnySpiderClass.loadSprites(this);
     };
 
     updateScore(addScore) {
@@ -46,7 +48,6 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.scoreBord = this.add.text(30, 30, `Score: ${String(this.score)}`)
         this.scoreBord.scale = 2;
         
-
         World1.initAnimations(this);
         this.world = new World1(this);
         this.world.create();
@@ -73,32 +74,36 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusHundredPoints = new Plus100PointsClass(this);
         this.plusHundredPoints.create();
 
+        FunnySpiderClass.initAnims(this);
+        this.funnySpider = new FunnySpiderClass(this);
+        this.funnySpider.create();
+
         this.addCollition();
     };
     
     addCollition() {
-        this.physics.add.overlap(this.playerCross.playerCross, this.testPumpkin.Pumpkin, () => {
-            if (this.input.activePointer.isDown && !this.testPumpkin.isDestroyed && !this.playerCross.isJustFired) {
-                this.testPumpkin.pumpkinDead()
-                this.plusFiftyPoints.setActive(this.testPumpkin.Pumpkin.x, this.testPumpkin.Pumpkin.y)
-                this.updateScore(50)
+        this.test = this.physics.add.overlap(this.playerCross.playerCross, this.testPumpkin.Pumpkin, () => {
+            if (this.input.activePointer.isDown && !this.testPumpkin.isDestroyed) {
+                this.testPumpkin.pumpkinDead();
+                this.plusFiftyPoints.setActive(this.testPumpkin.Pumpkin.x, this.testPumpkin.Pumpkin.y);
+                this.updateScore(50);
             };
         });
 
         this.physics.add.overlap(this.playerCross.playerCross, this.smalPumpkin.Pumpkin, () => {
-            if (this.input.activePointer.isDown && !this.smalPumpkin.isDestroyed && !this.playerCross.isJustFired) {
+            if (this.input.activePointer.isDown && !this.smalPumpkin.isDestroyed) {
                 this.smalPumpkin.pumpkinDead();
                 this.plusHundredPoints.setActive(this.smalPumpkin.Pumpkin.x, this.smalPumpkin.Pumpkin.y);
-                this.updateScore(100)
-            }
-        })
+                this.updateScore(100);
+            };
+        });
         
     };
 
     update(time, delta) {
+        this.playerCross.update(time, delta);
         this.world.update(time, delta);
         this.pieps.update(time, delta);
-        this.playerCross.update(time, delta);
         this.testPumpkin.update(time, delta);
         this.smalPumpkin.update(time, delta);
         this.plusFiftyPoints.update(time, delta);

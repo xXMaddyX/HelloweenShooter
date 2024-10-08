@@ -66,6 +66,14 @@ import EnemySmalPumpkin0 from '../assets/KoerbisKlein/KrbsKlein_0000.png'
 import EnemySmalPumpkin1 from '../assets/KoerbisKlein/KrbsKlein_0001.png'
 import EnemySmalPumpkin2 from '../assets/KoerbisKlein/KrbsKlein_0002.png'
 
+//FUNNY_SPIDER
+import FunnySpider0 from '../assets/FunnySpider/Spinne_0000.png'
+import FunnySpider1 from '../assets/FunnySpider/Spinne_0001.png'
+import FunnySpider2 from '../assets/FunnySpider/Spinne_0002.png'
+import FunnySpider3 from '../assets/FunnySpider/Spinne_0003.png'
+import FunnySpider4 from '../assets/FunnySpider/Spinne_0004.png'
+import FunnySpider5 from '../assets/FunnySpider/Spinne_0005.png'
+
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
 import PlayerShot from '../assets/sounds/playershot.wav'
@@ -118,5 +126,13 @@ export {
     //SMAL_ENEMY_PUMPKIN
     EnemySmalPumpkin0,
     EnemySmalPumpkin1,
-    EnemySmalPumpkin2
+    EnemySmalPumpkin2,
+
+    //FUNNY_SPIDER
+    FunnySpider0,
+    FunnySpider1,
+    FunnySpider2,
+    FunnySpider3,
+    FunnySpider4,
+    FunnySpider5,
 };

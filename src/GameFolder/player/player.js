@@ -11,6 +11,7 @@ export default class Player {
         /**@type {Phaser.Scene} */
         this.scene = scene
         this.isJustFired = false
+        this.timer = 1
     };
 
     //MAKE STATIC LATER!!!!!!!!!!!!
@@ -44,14 +45,26 @@ export default class Player {
         this.playerCross.y = this.scene.game.input.mousePointer.y
     }
 
+    fireGun() {
+        this.isJustFired = true
+        this.playShotSound();
+    };
+
+    timerHandler(delta) {
+        this.timer -= delta / 500
+        if (this.timer <= 0) {
+            this.timer = 1
+            this.isJustFired = false
+        }
+    }
+
     update(time, delta) {
         this.crossHandler()
-        if (this.scene.input.activePointer.isDown && !this.isJustFired) {
-            this.isJustFired = true
-            this.playShotSound();
-            this.scene.time.delayedCall(500, () => {
-                this.isJustFired = false
-            })
+        if (this.isJustFired) {
+            this.timerHandler(delta)
         }
+        if (this.scene.input.mousePointer.isDown && !this.isJustFired) {
+            this.fireGun()
+        };
     };
 };
