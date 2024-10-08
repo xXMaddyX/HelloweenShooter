@@ -32,7 +32,7 @@ export default class Player {
         this.playerCross.setBodySize(10, 10, true)
         this.scene.input.mouse.manager.canvas.style.cursor = "none";
 
-        this.shotAudio = this.scene.sound.add(KEYS.KEY_SHOT_SOUND, { volume: 0.1 });
+        this.shotAudio = this.scene.sound.add(KEYS.KEY_SHOT_SOUND, { volume: 0.5 });
     };
 
     playShotSound() {

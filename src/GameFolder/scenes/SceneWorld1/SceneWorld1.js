@@ -78,7 +78,7 @@ export default class SceneLvL1 extends Phaser.Scene {
     
     addCollition() {
         this.physics.add.overlap(this.playerCross.playerCross, this.testPumpkin.Pumpkin, () => {
-            if (this.input.activePointer.isDown && !this.testPumpkin.isDestroyed) {
+            if (this.input.activePointer.isDown && !this.testPumpkin.isDestroyed && !this.playerCross.isJustFired) {
                 this.testPumpkin.pumpkinDead()
                 this.plusFiftyPoints.setActive(this.testPumpkin.Pumpkin.x, this.testPumpkin.Pumpkin.y)
                 this.updateScore(50)
@@ -86,7 +86,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         });
 
         this.physics.add.overlap(this.playerCross.playerCross, this.smalPumpkin.Pumpkin, () => {
-            if (this.input.activePointer.isDown && !this.smalPumpkin.isDestroyed) {
+            if (this.input.activePointer.isDown && !this.smalPumpkin.isDestroyed && !this.playerCross.isJustFired) {
                 this.smalPumpkin.pumpkinDead();
                 this.plusHundredPoints.setActive(this.smalPumpkin.Pumpkin.x, this.smalPumpkin.Pumpkin.y);
                 this.updateScore(100)
