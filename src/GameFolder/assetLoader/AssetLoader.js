@@ -74,6 +74,12 @@ import FunnySpider3 from '../assets/FunnySpider/Spinne_0003.png'
 import FunnySpider4 from '../assets/FunnySpider/Spinne_0004.png'
 import FunnySpider5 from '../assets/FunnySpider/Spinne_0005.png'
 
+//UI_ELEMENTS
+import HappyHelloween from '../assets/UiAssets/HappyHaloween.png'
+import Start from '../assets/UiAssets/Start.png'
+import HighScore from '../assets/UiAssets/Highscore.png'
+import Restart from '../assets/UiAssets/Restat.png'
+
 //Sound
 import PumpkinSong from '../assets/sounds/PumpkinMayhem.mp3'
 import PlayerShot from '../assets/sounds/playershot.wav'
@@ -135,4 +141,10 @@ export {
     FunnySpider3,
     FunnySpider4,
     FunnySpider5,
+
+    //UI_ASSETS
+    HappyHelloween,
+    Start,
+    Restart,
+    HighScore,
 };

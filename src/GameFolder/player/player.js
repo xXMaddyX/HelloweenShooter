@@ -28,7 +28,7 @@ export default class Player {
 
     create() {
         this.playerCross = this.scene.physics.add.sprite(0 ,0 ,KEYS.KEY_CROSS_HAIR);
-        this.playerCross.depth = 12
+        this.playerCross.depth = 21
         this.playerCross.scale = 0.25
         this.playerCross.setBodySize(10, 10, true)
         this.scene.input.mouse.manager.canvas.style.cursor = "none";

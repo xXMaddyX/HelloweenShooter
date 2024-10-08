@@ -40,6 +40,8 @@ export default class World1 {
         this.flickerTimer = 0;
         this.flickerDelay = 100;
         this.isMusicPlaying = false;
+        this.isGameRunning = false;
+        this.isGameEnd = false;
     };
 
     initPools() {
@@ -203,13 +205,13 @@ export default class World1 {
                 this.scene.sound.context.resume().then(() => {
                     console.log('AudioContext erfolgreich entsperrt.');
                     if (!this.pumpkinSound.isPlaying) {
-                        this.guitarPieps.anims.play("guitarAnim")
-                        this.pumpkinSound.play();
+                        //this.guitarPieps.anims.play("guitarAnim")
+                        //this.pumpkinSound.play();
                     }
                 });
             } else {
                 if (!this.pumpkinSound.isPlaying) {
-                    this.pumpkinSound.play();
+                    //this.pumpkinSound.play();
                 }
             }
         });
@@ -282,13 +284,25 @@ export default class World1 {
             }
         }
     }
-    
+
+    startMusic() {
+        this.pumpkinSound.play()
+        this.isGameRunning = true;
+    }
 
     update(time, delta) {
-        if (!this.pumpkinSound.isPlaying) {
+        /*if (!this.pumpkinSound.isPlaying) {
             this.pumpkinSound.play()
+        }*/
 
-        }
+        if (this.isGameRunning) {
+            if (!this.pumpkinSound.isPlaying) {
+                this.isGameRunning = false
+                this.scene.stopGame();
+                console.log("Song Ends and Game End")
+            };
+        };
+
         this.guitarHandler();
         this.singPiepsHandler();
         this.flickerTimer += delta;
@@ -296,6 +310,6 @@ export default class World1 {
         if (this.flickerTimer >= this.flickerDelay) {
             this.windowFlicker();
             this.flickerTimer = 0;
-        }
+        };
     };
 };

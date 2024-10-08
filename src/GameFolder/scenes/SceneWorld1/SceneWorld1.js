@@ -8,6 +8,7 @@ import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
 import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
+import UiInterface from "../../ui/interface";
 
 export default class SceneLvL1 extends Phaser.Scene {
     constructor() {
@@ -28,6 +29,7 @@ export default class SceneLvL1 extends Phaser.Scene {
     preload() {
         Player.loadSprites(this);
         World1.loadSprites(this);
+        UiInterface.loadSprites(this);
         Pieps.loadSprites(this);
         FlyingPumpkin.loadSprites(this);
         SmalEnemyPumpkin.loadSprites(this);
@@ -42,6 +44,11 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.scoreBord.text = `Score: ${String(this.score)}`;
     };
 
+    resetScore() {
+        this.score = 0
+        this.scoreBord.text = `Score: ${String(this.score)}`
+    };
+
     create() {
         this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
         
@@ -51,6 +58,9 @@ export default class SceneLvL1 extends Phaser.Scene {
         World1.initAnimations(this);
         this.world = new World1(this);
         this.world.create();
+
+        this.uiInterface = new UiInterface(this);
+        this.uiInterface.create();
         
         this.pieps = new Pieps(this);
         this.pieps.create();
@@ -109,4 +119,13 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusFiftyPoints.update(time, delta);
         this.plusHundredPoints.update(time, delta);
     };
+
+    startGame() {
+        this.world.startMusic();
+        this.score = 0;
+    }
+
+    stopGame() {
+        this.uiInterface.setShowHighScore();
+    }
 };
