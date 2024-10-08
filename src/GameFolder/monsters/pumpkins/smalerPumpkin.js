@@ -1,23 +1,23 @@
 import Phaser from "phaser";
-import { EnemySmalPumpkin0, EnemySmalPumpkin1, EnemySmalPumpkin2, } from "../../assetLoader/AssetLoader";
+import { EnemySmalPumpkin0, EnemySmalPumpkin1, EnemySmalPumpkin2 } from "../../assetLoader/AssetLoader";
 
 const KEYS = {
-    KEY_PUMPKIN0: "SmalPumpkin0",
-    KEY_PUMPKIN1: "SmalPumpkin1",
-    KEY_PUMPKIN2: "SmalPumpkin2"
+    KEY_PUMPKIN0: "SmalerPumpkin0",
+    KEY_PUMPKIN1: "SmalerPumpkin1",
+    KEY_PUMPKIN2: "SmalerPumpkin2"
 }
 
-export default class SmalEnemyPumpkin {
+export default class SmalerEnemyPumpkin {
     constructor(scene) {
         /**@type {Phaser.Scene} */
         this.scene = scene
         this.PumpkinPositions = [
-            {x: 280, y:180, depth: 5, scale: 0.25, body: {width: 240, height: 200, center: true}, offset: {x: 240, y: 200}},
-            {x: 1300, y: 470, depth: 8, scale: 0.25, body: {width: 200, height: 130, center: true}, offset: null},
-            {x: 600, y: 480, depth: 8, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
-            {x: 100, y: 750, depth: 5, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
-            {x: 1480, y: 800, depth: 5, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: {x: 300, y: 200}},
-            {x: 630, y: 240, depth: 8, scale: 0.25, body: {width: 200, height: 200, center: true}, offset: null},
+            {x: 1330, y: 340, depth: 11, scale: 0.15, body: {width: 200, height: 200, center: true}, offset: null},
+            {x: 905, y: 440, depth: 8, scale: 0.15, body: {width: 200, height: 200, center: true}, offset: {x: 300, y: 150}},
+            {x: 700, y: 120, depth: 5, scale: 0.15, body: {width: 200, height: 200, center: true}, offset: null},
+            {x: 628, y:355, depth: 11, scale: 0.15, body: {width: 240, height: 200, center: true}, offset: {x: 240, y: 200}},
+            {x: 140, y: 980, depth: 11, scale: 0.15, body: {width: 240, height: 200, center: true}, offset: {x: 240, y: 210}},
+            {x: 450, y: 420, depth: 5, scale: 0.15, body: {width: 200, height: 200, center: true}, offset: null},
         ]
         this.actualPositionIndex = 0
         this.inReset = false
@@ -32,7 +32,7 @@ export default class SmalEnemyPumpkin {
 
     initAnimations() {
         this.deadAnim = this.scene.anims.create({
-            key: "smalPumpkinAnim",
+            key: "smalerPumpkinAnim",
             frames: [
                 { key: KEYS.KEY_PUMPKIN0 },
                 { key: KEYS.KEY_PUMPKIN1 },
@@ -57,7 +57,7 @@ export default class SmalEnemyPumpkin {
     }
 
     pumpkinDead() {
-        this.Pumpkin.anims.play("smalPumpkinAnim");
+        this.Pumpkin.anims.play("smalerPumpkinAnim");
         this.isDestroyed = true
     }
 

@@ -3,7 +3,7 @@ import Background from '../assets/Env/Hintergrund.png';
 
 //POINTS
 import Minus50Points from '../assets/Env/-50Pkt.png';
-import Plus50Points from '../assets/Env/50Pkt.png';
+import PlusFiftyPoints from '../assets/Env/fiftyPkt.png';
 import PlusHundredPoints from '../assets/Env/100Pkt.png';
 
 //BUSHES
@@ -73,7 +73,7 @@ import PlayerShot from '../assets/sounds/playershot.wav'
 export {
     Background,
     Minus50Points,
-    Plus50Points,
+    PlusFiftyPoints,
     PlusHundredPoints,
     Bush1,
     Bush2,
