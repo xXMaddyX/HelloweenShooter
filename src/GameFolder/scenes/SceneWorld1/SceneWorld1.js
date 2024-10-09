@@ -8,6 +8,7 @@ import BigEnemyPumpkin from "../../monsters/pumpkins/bigPumpkin";
 import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
+import Plus25PointsClass from "../../scores/Plus25Points";
 import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
 import UiInterface from "../../ui/interface";
 
@@ -38,6 +39,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         BigEnemyPumpkin.loadSprites(this);
         PlusFiftyPointsClass.loadSprites(this);
         Plus100PointsClass.loadSprites(this);
+        Plus25PointsClass.loadSprites(this);
         FunnySpiderClass.loadSprites(this);
     };
 
@@ -89,6 +91,9 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusHundredPoints = new Plus100PointsClass(this);
         this.plusHundredPoints.create();
 
+        this.plus25Points = new Plus25PointsClass(this);
+        this.plus25Points.create();
+
         FunnySpiderClass.initAnims(this);
         this.funnySpider = new FunnySpiderClass(this);
         this.funnySpider.create();
@@ -116,8 +121,8 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.physics.add.overlap(this.playerCross.playerCross, this.bigPumpkin.Pumpkin, () => {
             if (this.input.activePointer.isDown && !this.bigPumpkin.isDestroyed) {
                 this.bigPumpkin.pumpkinDead();
-                this.plusFiftyPoints.setActive(this.bigPumpkin.Pumpkin.x, this.bigPumpkin.Pumpkin.y);
-                this.updateScore(100);
+                this.plus25Points.setActive(this.bigPumpkin.Pumpkin.x, this.bigPumpkin.Pumpkin.y);
+                this.updateScore(25);
             };
         });
         
@@ -132,6 +137,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.bigPumpkin.update(time, delta);
         this.plusFiftyPoints.update(time, delta);
         this.plusHundredPoints.update(time, delta);
+        this.plus25Points.update(time, delta);
     };
 
     startGame() {
