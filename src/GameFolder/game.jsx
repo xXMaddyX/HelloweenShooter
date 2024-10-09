@@ -4,6 +4,7 @@ import SceneLvL1 from "./scenes/SceneWorld1/SceneWorld1";
 
 function Game() {
     const gameRef = useRef(null);
+
     useEffect(() => {
         if (!gameRef.current) {
             gameRef.current = new Phaser.Game({
@@ -22,11 +23,16 @@ function Game() {
                         //debug: true
                     }
                 },
-                scene: [
-                    new SceneLvL1(this)
-                ],
+                input: {
+                    keyboard: {
+                        target: window,
+                        preventDefault: false,
+                    },
+                },
+                scene: [new SceneLvL1(this)],
             });
         }
+
         return () => {
             if (gameRef.current) {
                 gameRef.current.destroy(true);
@@ -35,8 +41,37 @@ function Game() {
         };
     }, []);
 
+    const handleFullscreen = () => {
+        if (gameRef.current) {
+            if (gameRef.current.scale.isFullscreen) {
+                gameRef.current.scale.stopFullscreen();
+                gameRef.current.scale.resize(1920, 1080);
+            } else {
+                gameRef.current.scale.startFullscreen();
+                const fullscreenWidth = window.screen.width;
+                const fullscreenHeight = window.screen.height;
+                gameRef.current.scale.resize(fullscreenWidth, fullscreenHeight);
+            }
+        }
+    };
+
     return (
-        <div className="phaser-game" />
+        <div>
+            <div id="phaser-game" />
+            <button
+                onClick={handleFullscreen}
+                style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    top: 10,
+                    right: 10,
+                    padding: '10px 20px',
+                    fontSize: '16px'
+                }}
+            >
+                Vollbild
+            </button>
+        </div>
     );
 }
 

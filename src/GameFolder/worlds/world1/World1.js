@@ -160,7 +160,7 @@ export default class World1 {
 
         this.gras = this.scene.add.sprite(calcBackPositionX(0), calcBackPositionY(0), KEYS.KEY_GRAS);
         this.gras.scale = 1;
-        this.gras.depth = 10;
+        this.gras.depth = 11;
 
         this.ground = this.scene.add.sprite(calcBackPositionX(0), calcBackPositionY(0), KEYS.KEY_GROUND);
         this.ground.scale = 1;

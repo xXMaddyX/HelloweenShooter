@@ -4,6 +4,7 @@ import Pieps from "../../monsters/pieps/pieps";
 import Player from "../../player/player";
 import SmalEnemyPumpkin from "../../monsters/pumpkins/pumpkin";
 import SmalerEnemyPumpkin from "../../monsters/pumpkins/smalerPumpkin";
+import BigEnemyPumpkin from "../../monsters/pumpkins/bigPumpkin";
 import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
@@ -34,6 +35,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         FlyingPumpkin.loadSprites(this);
         SmalEnemyPumpkin.loadSprites(this);
         SmalerEnemyPumpkin.loadSprites(this);
+        BigEnemyPumpkin.loadSprites(this);
         PlusFiftyPointsClass.loadSprites(this);
         Plus100PointsClass.loadSprites(this);
         FunnySpiderClass.loadSprites(this);
@@ -77,7 +79,10 @@ export default class SceneLvL1 extends Phaser.Scene {
 
         this.smalPumpkin = new SmalerEnemyPumpkin(this);
         this.smalPumpkin.create();
-        
+
+        this.bigPumpkin = new BigEnemyPumpkin(this);
+        this.bigPumpkin.create();
+
         this.plusFiftyPoints = new PlusFiftyPointsClass(this);
         this.plusFiftyPoints.create();
 
@@ -107,6 +112,14 @@ export default class SceneLvL1 extends Phaser.Scene {
                 this.updateScore(100);
             };
         });
+
+        this.physics.add.overlap(this.playerCross.playerCross, this.bigPumpkin.Pumpkin, () => {
+            if (this.input.activePointer.isDown && !this.bigPumpkin.isDestroyed) {
+                this.bigPumpkin.pumpkinDead();
+                this.plusFiftyPoints.setActive(this.bigPumpkin.Pumpkin.x, this.bigPumpkin.Pumpkin.y);
+                this.updateScore(100);
+            };
+        });
         
     };
 
@@ -116,6 +129,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.pieps.update(time, delta);
         this.testPumpkin.update(time, delta);
         this.smalPumpkin.update(time, delta);
+        this.bigPumpkin.update(time, delta);
         this.plusFiftyPoints.update(time, delta);
         this.plusHundredPoints.update(time, delta);
     };
