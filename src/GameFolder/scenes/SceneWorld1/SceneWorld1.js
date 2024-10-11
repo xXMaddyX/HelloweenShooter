@@ -10,6 +10,7 @@ import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
 import Plus25PointsClass from "../../scores/Plus25Points";
 import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
+import Ghost from "../../monsters/Ghost/ghost";
 import UiInterface from "../../ui/interface";
 
 export default class SceneLvL1 extends Phaser.Scene {
@@ -41,6 +42,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         Plus100PointsClass.loadSprites(this);
         Plus25PointsClass.loadSprites(this);
         FunnySpiderClass.loadSprites(this);
+        Ghost.loadSprite(this);
     };
 
     updateScore(addScore) {
@@ -98,6 +100,9 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.funnySpider = new FunnySpiderClass(this);
         this.funnySpider.create();
 
+        this.ghost = new Ghost(this);
+        this.ghost.create(200, 200);
+
         this.addCollition();
     };
     
@@ -138,6 +143,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusFiftyPoints.update(time, delta);
         this.plusHundredPoints.update(time, delta);
         this.plus25Points.update(time, delta);
+        this.ghost.update(time, delta);
     };
 
     startGame() {
