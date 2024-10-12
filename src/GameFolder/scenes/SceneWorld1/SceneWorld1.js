@@ -8,6 +8,7 @@ import BigEnemyPumpkin from "../../monsters/pumpkins/bigPumpkin";
 import FlyingPumpkin from "../../monsters/FlyingPumpkin";
 import PlusFiftyPointsClass from "../../scores/Plus50Points";
 import Plus100PointsClass from "../../scores/Plus100Points";
+import Plus200PointsClass from "../../scores/Plus200Points";
 import Plus25PointsClass from "../../scores/Plus25Points";
 import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
 import Ghost from "../../monsters/Ghost/ghost";
@@ -40,6 +41,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         BigEnemyPumpkin.loadSprites(this);
         PlusFiftyPointsClass.loadSprites(this);
         Plus100PointsClass.loadSprites(this);
+        Plus200PointsClass.loadSprites(this);
         Plus25PointsClass.loadSprites(this);
         FunnySpiderClass.loadSprites(this);
         Ghost.loadSprite(this);
@@ -93,6 +95,9 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusHundredPoints = new Plus100PointsClass(this);
         this.plusHundredPoints.create();
 
+        this.plus200Points = new Plus200PointsClass(this);
+        this.plus200Points.create();
+
         this.plus25Points = new Plus25PointsClass(this);
         this.plus25Points.create();
 
@@ -139,6 +144,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.physics.add.overlap(this.playerCross.playerCross, this.ghost.Ghost, () => {
             if (this.input.activePointer.isDown && this.ghost.isActive) {
                 this.ghost.resetGhostOnDead();
+                this.plus200Points.setActive(this.ghost.Ghost.x, this.ghost.Ghost.y);
                 this.updateScore(200);
             };
         });
@@ -146,6 +152,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.physics.add.overlap(this.playerCross.playerCross, this.ghost2.Ghost, () => {
             if (this.input.activePointer.isDown && this.ghost2.isActive) {
                 this.ghost2.resetGhostOnDead();
+                this.plus200Points.setActive(this.ghost2.Ghost.x, this.ghost2.Ghost.y);
                 this.updateScore(200);
             }
         })
@@ -162,6 +169,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusFiftyPoints.update(time, delta);
         this.plusHundredPoints.update(time, delta);
         this.plus25Points.update(time, delta);
+        this.plus200Points.update(time, delta);
         this.ghost.update(time, delta);
         this.ghost2.update(time, delta);
     };

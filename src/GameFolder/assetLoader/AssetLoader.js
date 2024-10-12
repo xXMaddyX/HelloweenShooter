@@ -4,6 +4,7 @@ import Background from '../assets/Env/Hintergrund.png';
 //POINTS
 import Minus50Points from '../assets/Env/-50Pkt.png';
 import Plus25Points from '../assets/Env/25Pkt.png';
+import Plus200Points from '../assets/Env/200Pkt.png';
 import PlusFiftyPoints from '../assets/Env/fiftyPkt.png';
 import PlusHundredPoints from '../assets/Env/100Pkt.png';
 
@@ -92,6 +93,7 @@ export {
     Background,
     Minus50Points,
     Plus25Points,
+    Plus200Points,
     PlusFiftyPoints,
     PlusHundredPoints,
     Bush1,
