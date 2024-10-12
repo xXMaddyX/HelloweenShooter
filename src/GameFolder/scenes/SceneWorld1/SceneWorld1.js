@@ -101,7 +101,12 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.funnySpider.create();
 
         this.ghost = new Ghost(this);
-        this.ghost.create(200, 200);
+        let ghostConfig = {range: 200, timeToShow: 30, visibleTime: 2};
+        this.ghost.create(600, 400, ghostConfig);
+
+        this.ghost2 =  new Ghost(this);
+        let ghostConfig2 = {range: 200, timeToShow: 20, visibleTime: 2};
+        this.ghost2.create(1400, 600, ghostConfig2);
 
         this.addCollition();
     };
@@ -130,6 +135,20 @@ export default class SceneLvL1 extends Phaser.Scene {
                 this.updateScore(25);
             };
         });
+
+        this.physics.add.overlap(this.playerCross.playerCross, this.ghost.Ghost, () => {
+            if (this.input.activePointer.isDown && this.ghost.isActive) {
+                this.ghost.resetGhostOnDead();
+                this.updateScore(200);
+            };
+        });
+
+        this.physics.add.overlap(this.playerCross.playerCross, this.ghost2.Ghost, () => {
+            if (this.input.activePointer.isDown && this.ghost2.isActive) {
+                this.ghost2.resetGhostOnDead();
+                this.updateScore(200);
+            }
+        })
         
     };
 
@@ -144,11 +163,14 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusHundredPoints.update(time, delta);
         this.plus25Points.update(time, delta);
         this.ghost.update(time, delta);
+        this.ghost2.update(time, delta);
     };
 
     startGame() {
         this.world.startMusic();
         this.score = 0;
+        this.ghost.resetGhostOnDead();
+        this.ghost2.resetGhostOnDead();
     }
 
     stopGame() {
