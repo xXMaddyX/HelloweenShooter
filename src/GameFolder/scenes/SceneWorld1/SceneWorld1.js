@@ -98,6 +98,9 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plus200Points = new Plus200PointsClass(this);
         this.plus200Points.create();
 
+        this.plus200Points2 = new Plus200PointsClass(this);
+        this.plus200Points2.create();
+
         this.plus25Points = new Plus25PointsClass(this);
         this.plus25Points.create();
 
@@ -152,7 +155,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.physics.add.overlap(this.playerCross.playerCross, this.ghost2.Ghost, () => {
             if (this.input.activePointer.isDown && this.ghost2.isActive) {
                 this.ghost2.resetGhostOnDead();
-                this.plus200Points.setActive(this.ghost2.Ghost.x, this.ghost2.Ghost.y);
+                this.plus200Points2.setActive(this.ghost2.Ghost.x, this.ghost2.Ghost.y);
                 this.updateScore(200);
             }
         })
@@ -170,6 +173,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.plusHundredPoints.update(time, delta);
         this.plus25Points.update(time, delta);
         this.plus200Points.update(time, delta);
+        this.plus200Points2.update(time, delta);
         this.ghost.update(time, delta);
         this.ghost2.update(time, delta);
     };
