@@ -14,7 +14,6 @@ export default class Player {
         this.timer = 1
     };
 
-    //MAKE STATIC LATER!!!!!!!!!!!!
     static loadSprites(scene) {
         scene.load.image(KEYS.KEY_CROSS_HAIR, CrossHair);
 

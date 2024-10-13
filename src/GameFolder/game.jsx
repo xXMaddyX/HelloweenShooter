@@ -10,6 +10,10 @@ function Game() {
             gameRef.current = new Phaser.Game({
                 type: Phaser.WEBGL,
                 pixelArt: true,
+                fps: {
+                    target: 60,
+                    forceSetTimeOut: true
+                },
                 scale: {
                     parent: "phaser-game",
                     mode: Phaser.Scale.FIT,
