@@ -13,6 +13,7 @@ import Plus25PointsClass from "../../scores/Plus25Points";
 import FunnySpiderClass from "../../monsters/FunnySpider/funnySpider";
 import Ghost from "../../monsters/Ghost/ghost";
 import UiInterface from "../../ui/interface";
+import LoadDataFromApi from "./LoadDataFromAPI.js";
 
 export default class SceneLvL1 extends Phaser.Scene {
     constructor() {
@@ -20,6 +21,8 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.screenWidth = 1920;
         this.screenHeight = 1080;
         this.score = 0;
+        this.SCORE_DATA_FROM_API = {}
+        this.isLoadetData = false;
     };
 
     initScene() {
@@ -30,7 +33,7 @@ export default class SceneLvL1 extends Phaser.Scene {
         
     };
     
-    preload() {
+    async preload() {
         Player.loadSprites(this);
         World1.loadSprites(this);
         UiInterface.loadSprites(this);
@@ -45,7 +48,13 @@ export default class SceneLvL1 extends Phaser.Scene {
         Plus25PointsClass.loadSprites(this);
         FunnySpiderClass.loadSprites(this);
         Ghost.loadSprite(this);
+        await this.runAPIFetch();
     };
+
+    async runAPIFetch() {
+        this.SCORE_DATA_FROM_API = await LoadDataFromApi.Instance.getScoreDataFromApi();
+        console.log(this.SCORE_DATA_FROM_API)
+    }
 
     updateScore(addScore) {
         this.score += addScore;

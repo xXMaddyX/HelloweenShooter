@@ -53,10 +53,26 @@ export default class UiInterface {
             this.setOnDisableStartScreen();
             this.startGame();
         })
-
-        this.score1 = this.scene.add.text(725, 210,"Score1: 0")
+        //HERE GET DATA FROM MAIN SCENE FOR SET DATA.
+        this.score1 = this.scene.add.text(725, 210,"PLayer1: 0")
         this.score1.depth = 20
         this.score1.scale = 2
+
+        this.score2 = this.scene.add.text(760, 317, "Player2: 0")
+        this.score2.depth = 20
+        this.score2.scale = 2
+
+        this.score3 = this.scene.add.text(725, 430, "Player3: 0")
+        this.score3.depth = 20;
+        this.score3.scale = 2;
+
+        this.score4 = this.scene.add.text(780, 535, "Player4: 0")
+        this.score4.depth = 20;
+        this.score4.scale = 2;
+
+        this.score5 = this.scene.add.text(740, 637, "Player5: 0")
+        this.score5.depth = 20;
+        this.score5.scale = 2;
 
         this.setOnStartScreen();
     };
@@ -66,7 +82,15 @@ export default class UiInterface {
         this.startBtn.active = true;
         this.highScore.visible = false;
         this.restart.visible = false;
-        this.score1.visible = false
+        this.setScoresOnStartScreen();
+    }
+
+    setScoresOnStartScreen() {
+        this.score1.visible = false;
+        this.score2.visible = false;
+        this.score3.visible = false;
+        this.score4.visible = false;
+        this.score5.visible = false;
     }
 
     setOnDisableStartScreen() {
@@ -82,6 +106,8 @@ export default class UiInterface {
         this.highScore.visible = true;
         this.restart.visible = true;
         this.score1.visible = true;
+
+        //WE NEED TO STORE DATA HERE BECOUSE OF SERVER!!!!
         this.score1.text = `Score1: ${this.scene.score}`
         this.scene.resetScore();
     }
