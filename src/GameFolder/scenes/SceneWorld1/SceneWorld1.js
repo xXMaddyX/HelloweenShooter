@@ -53,7 +53,6 @@ export default class SceneLvL1 extends Phaser.Scene {
 
     async runAPIFetch() {
         this.SCORE_DATA_FROM_API = await LoadDataFromApi.Instance.getScoreDataFromApi();
-        console.log(this.SCORE_DATA_FROM_API)
     }
 
     updateScore(addScore) {

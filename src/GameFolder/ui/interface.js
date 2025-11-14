@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import SceneLvL1 from "../scenes/SceneWorld1/SceneWorld1.js";
 import { HappyHelloween, Start, HighScore, Restart } from '../assetLoader/AssetLoader.js';
 
 const KEYS = {
@@ -10,7 +10,7 @@ const KEYS = {
 
 export default class UiInterface {
     constructor(scene) {
-        /**@type {Phaser.Scene} */
+        /**@type {SceneLvL1} */
         this.scene = scene;
     };
 
@@ -54,23 +54,23 @@ export default class UiInterface {
             this.startGame();
         })
         //HERE GET DATA FROM MAIN SCENE FOR SET DATA.
-        this.score1 = this.scene.add.text(725, 210,"PLayer1: 0")
+        this.score1 = this.scene.add.text(725, 210, `Player${this.scene.SCORE_DATA_FROM_API[0].player}: ${this.scene.SCORE_DATA_FROM_API[0].score}`)
         this.score1.depth = 20
         this.score1.scale = 2
 
-        this.score2 = this.scene.add.text(760, 317, "Player2: 0")
+        this.score2 = this.scene.add.text(760, 317, `Player${this.scene.SCORE_DATA_FROM_API[1].player}: ${this.scene.SCORE_DATA_FROM_API[1].score}`)
         this.score2.depth = 20
         this.score2.scale = 2
 
-        this.score3 = this.scene.add.text(725, 430, "Player3: 0")
+        this.score3 = this.scene.add.text(725, 430, `Player${this.scene.SCORE_DATA_FROM_API[2].player}: ${this.scene.SCORE_DATA_FROM_API[2].score}`)
         this.score3.depth = 20;
         this.score3.scale = 2;
 
-        this.score4 = this.scene.add.text(780, 535, "Player4: 0")
+        this.score4 = this.scene.add.text(780, 535, `Player${this.scene.SCORE_DATA_FROM_API[3].player}: ${this.scene.SCORE_DATA_FROM_API[3].score}`)
         this.score4.depth = 20;
         this.score4.scale = 2;
 
-        this.score5 = this.scene.add.text(740, 637, "Player5: 0")
+        this.score5 = this.scene.add.text(740, 637, `Player${this.scene.SCORE_DATA_FROM_API[4].player}: ${this.scene.SCORE_DATA_FROM_API[4].score}`)
         this.score5.depth = 20;
         this.score5.scale = 2;
 
