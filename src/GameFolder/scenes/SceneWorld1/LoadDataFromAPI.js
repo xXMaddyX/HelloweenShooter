@@ -15,7 +15,7 @@ export default class LoadDataFromApi{
             return this.StoredData;
         } catch (err) {
             console.log(new Error("Cant get Scores from server", err));
-            return {};
+            return [];
         }
     }
 }

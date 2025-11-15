@@ -12,6 +12,7 @@ export default class UiInterface {
     constructor(scene) {
         /**@type {SceneLvL1} */
         this.scene = scene;
+        this.scoresRefPool = [];
     };
 
     static loadSprites(scene) {
@@ -54,26 +55,22 @@ export default class UiInterface {
             this.startGame();
         })
         //HERE GET DATA FROM MAIN SCENE FOR SET DATA.
-        this.score1 = this.scene.add.text(725, 210, `Player${this.scene.SCORE_DATA_FROM_API[0].player}: ${this.scene.SCORE_DATA_FROM_API[0].score}`)
-        this.score1.depth = 20
-        this.score1.scale = 2
+        this.score1 = this.scene.add.text(725, 210, `Player1: 0`)
+        this.score2 = this.scene.add.text(760, 317, `Player2: 0`)
+        this.score3 = this.scene.add.text(725, 430, `Player3: 0`)
+        this.score4 = this.scene.add.text(780, 535, `Player4: 0`)
+        this.score5 = this.scene.add.text(740, 637, `Player5: 0`)
+        
+        this.scoresRefPool.push(this.score1);
+        this.scoresRefPool.push(this.score2);
+        this.scoresRefPool.push(this.score3);
+        this.scoresRefPool.push(this.score4);
+        this.scoresRefPool.push(this.score5);
 
-        this.score2 = this.scene.add.text(760, 317, `Player${this.scene.SCORE_DATA_FROM_API[1].player}: ${this.scene.SCORE_DATA_FROM_API[1].score}`)
-        this.score2.depth = 20
-        this.score2.scale = 2
-
-        this.score3 = this.scene.add.text(725, 430, `Player${this.scene.SCORE_DATA_FROM_API[2].player}: ${this.scene.SCORE_DATA_FROM_API[2].score}`)
-        this.score3.depth = 20;
-        this.score3.scale = 2;
-
-        this.score4 = this.scene.add.text(780, 535, `Player${this.scene.SCORE_DATA_FROM_API[3].player}: ${this.scene.SCORE_DATA_FROM_API[3].score}`)
-        this.score4.depth = 20;
-        this.score4.scale = 2;
-
-        this.score5 = this.scene.add.text(740, 637, `Player${this.scene.SCORE_DATA_FROM_API[4].player}: ${this.scene.SCORE_DATA_FROM_API[4].score}`)
-        this.score5.depth = 20;
-        this.score5.scale = 2;
-
+        for (let item of this.scoresRefPool) {
+            item.depth = 20;
+            item.scale = 2
+        };
         this.setOnStartScreen();
     };
 
@@ -107,14 +104,51 @@ export default class UiInterface {
         this.restart.visible = true;
         this.score1.visible = true;
 
-        //WE NEED TO STORE DATA HERE BECOUSE OF SERVER!!!!
         this.score1.text = `Score1: ${this.scene.score}`
+        this.checkScores();
+        //Push data to server!!!!
+        this.sendDataToBackend();
         this.scene.resetScore();
-    }
+    };
+
+    async sendDataToBackend() {
+        let resp;
+        try {
+            resp = await fetch("http://192.168.0.49:3030/write", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.scene.SCORE_DATA_FROM_API),
+            });
+        } catch (err) {
+            resp = err
+        } finally {
+            console.log( await resp)
+        }
+    };
+
+    checkScores() {
+        if (this.scene.isFatched) {
+            for (let i = 0; i < this.scene.SCORE_DATA_FROM_API.length; i++) {
+                if (this.scene.score > this.scene.SCORE_DATA_FROM_API[i]) {
+                    this.scene.SCORE_DATA_FROM_API[i] = this.scene.score;
+                };
+            };
+        } else {
+            console.log("Data is not fetched no save happens");
+        };
+    };
 
     startGame() {
         this.scene.startGame();
     };
+    
+    updateInterface() {
+        for (let i = 0; i < this.scoresRefPool.length; i++) {
+            this.scoresRefPool[i].text = `Player${this.scene.SCORE_DATA_FROM_API[i].player}: ${this.scene.SCORE_DATA_FROM_API[i].score}`
+        }
+    }
 
     update() {
 

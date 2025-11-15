@@ -21,14 +21,15 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.screenWidth = 1920;
         this.screenHeight = 1080;
         this.score = 0;
-        this.SCORE_DATA_FROM_API = {}
+        this.SCORE_DATA_FROM_API = []
         this.isLoadetData = false;
+        this.isFatched = false;
     };
-
+    
     initScene() {
         
     };
-
+    
     resetScene() {
         
     };
@@ -50,21 +51,42 @@ export default class SceneLvL1 extends Phaser.Scene {
         Ghost.loadSprite(this);
         await this.runAPIFetch();
     };
-
+    
     async runAPIFetch() {
-        this.SCORE_DATA_FROM_API = await LoadDataFromApi.Instance.getScoreDataFromApi();
-    }
+        /**@type {Array} */
+        let responce = await LoadDataFromApi.Instance.getScoreDataFromApi();
+        if (responce.lenght != 0 && this.isFatched == false) { 
+            this.SCORE_DATA_FROM_API = responce 
+            this.isFatched = true;
+        } else { 
+            this.SCORE_DATA_FROM_API = [
+                {player: 1, score: 0,},
+                {player: 2, score: 0,},
+                {player: 3, score: 0,},
+                {player: 4, score: 0,},
+                {player: 5, score: 0,}
+            ]
+        };
+        if (this.SCORE_DATA_FROM_API.length == 0) return;
+    };
 
+    async refetch() {
+        if (this.isFatched) {
+            let responce = await LoadDataFromApi.Instance.getScoreDataFromApi();
+            this.SCORE_DATA_FROM_API = responce
+        } else { return }
+    }
+    
     updateScore(addScore) {
         this.score += addScore;
         this.scoreBord.text = `Score: ${String(this.score)}`;
     };
-
+    
     resetScore() {
         this.score = 0
         this.scoreBord.text = `Score: ${String(this.score)}`
     };
-
+    
     create() {
         this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
         
@@ -77,6 +99,7 @@ export default class SceneLvL1 extends Phaser.Scene {
 
         this.uiInterface = new UiInterface(this);
         this.uiInterface.create();
+        this.uiInterface.updateInterface();
         
         this.pieps = new Pieps(this);
         this.pieps.create();
