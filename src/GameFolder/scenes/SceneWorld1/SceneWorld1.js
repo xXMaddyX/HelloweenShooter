@@ -23,7 +23,6 @@ export default class SceneLvL1 extends Phaser.Scene {
         this.score = 0;
         this.SCORE_DATA_FROM_API = []
         this.isLoadetData = false;
-        this.isFatched = false;
     };
     
     initScene() {
@@ -55,9 +54,8 @@ export default class SceneLvL1 extends Phaser.Scene {
     async runAPIFetch() {
         /**@type {Array} */
         let responce = await LoadDataFromApi.Instance.getScoreDataFromApi();
-        if (responce.lenght != 0 && this.isFatched == false) { 
+        if (responce.lenght != 0) { 
             this.SCORE_DATA_FROM_API = responce 
-            this.isFatched = true;
         } else { 
             this.SCORE_DATA_FROM_API = [
                 {player: 1, score: 0,},
@@ -89,7 +87,6 @@ export default class SceneLvL1 extends Phaser.Scene {
     
     create() {
         this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
-        
         this.scoreBord = this.add.text(30, 30, `Score: ${String(this.score)}`)
         this.scoreBord.scale = 2;
         

@@ -1,4 +1,5 @@
 import SceneLvL1 from "../scenes/SceneWorld1/SceneWorld1.js";
+import LoadDataFromApi from "../scenes/SceneWorld1/LoadDataFromAPI.js";
 import { HappyHelloween, Start, HighScore, Restart } from '../assetLoader/AssetLoader.js';
 
 const KEYS = {
@@ -83,11 +84,9 @@ export default class UiInterface {
     }
 
     setScoresOnStartScreen() {
-        this.score1.visible = false;
-        this.score2.visible = false;
-        this.score3.visible = false;
-        this.score4.visible = false;
-        this.score5.visible = false;
+        this.scoresRefPool.forEach(item => {
+            item.visible = false;
+        })
     }
 
     setOnDisableStartScreen() {
@@ -99,15 +98,14 @@ export default class UiInterface {
         this.scene.resetScore();
     }
 
-    setShowHighScore() {
+    async setShowHighScore() {
         this.highScore.visible = true;
         this.restart.visible = true;
-        this.score1.visible = true;
-
-        this.score1.text = `Score1: ${this.scene.score}`
-        this.checkScores();
+        this.scoresRefPool.forEach(item => item.visible = true);
+        await this.checkScores();
         //Push data to server!!!!
         this.sendDataToBackend();
+        this.updateInterface();
         this.scene.resetScore();
     };
 
@@ -124,19 +122,19 @@ export default class UiInterface {
         } catch (err) {
             resp = err
         } finally {
-            console.log( await resp)
+            console.info(await resp)
         }
     };
 
-    checkScores() {
-        if (this.scene.isFatched) {
-            for (let i = 0; i < this.scene.SCORE_DATA_FROM_API.length; i++) {
-                if (this.scene.score > this.scene.SCORE_DATA_FROM_API[i]) {
-                    this.scene.SCORE_DATA_FROM_API[i] = this.scene.score;
-                };
-            };
-        } else {
-            console.log("Data is not fetched no save happens");
+    async checkScores() {
+        await this.scene.runAPIFetch();
+        for (let i = 0; i < this.scene.SCORE_DATA_FROM_API.length; i++) {
+            if (this.scene.score > this.scene.SCORE_DATA_FROM_API[i].score) {
+                this.scene.SCORE_DATA_FROM_API[i].score = this.scene.score;
+                    return;
+            } else {
+                continue;
+            }
         };
     };
 
