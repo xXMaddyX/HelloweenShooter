@@ -94,7 +94,7 @@ export default class UiInterface {
         this.startBtn.visible = false
         this.restart.visible = false
         this.highScore.visible = false
-        this.score1.visible = false
+        this.setScoresOnStartScreen();
         this.scene.resetScore();
     }
 
@@ -112,7 +112,7 @@ export default class UiInterface {
     async sendDataToBackend() {
         let resp;
         try {
-            resp = await fetch("http://192.168.0.49:3030/write", {
+            resp = await fetch("http://159.195.27.147:3030/write", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

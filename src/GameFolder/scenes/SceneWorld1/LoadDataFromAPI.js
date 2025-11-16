@@ -8,7 +8,7 @@ export default class LoadDataFromApi{
 
     async getScoreDataFromApi() {
         try {
-            let rawData = await fetch("http://192.168.0.49:3030/read", {
+            let rawData = await fetch("http://159.195.27.147:3030/read", {
                 method: "GET",
             });
             this.StoredData = await rawData.json();
